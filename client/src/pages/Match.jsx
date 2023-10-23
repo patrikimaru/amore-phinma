@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { Link } from 'react-router-dom';
 
-const Message = () => {
+function Match(props) {
   const { userId } = useAuth();
   const [matches, setMatches] = useState([]);
   const [matchedUsers, setMatchedUsers] = useState([]);
@@ -33,29 +34,32 @@ const Message = () => {
   }, [matches]);
 
   return (
-    <div style={{padding: '20px'}}>
+    <div style={{ padding: '20px' }}>
       <h1>My Matches</h1>
       {matchedUsers.length === 0 ? (
         <p>No matches found.</p>
       ) : (
         <ul>
           {matchedUsers.map((match) => (
-            <li key={match.id} className="card match"
-            style={{
-              backgroundImage: `url(${
-                match.profileImage
-                  ? match.profileImage
-                  : "https://www.pngfind.com/pngs/m/676-6764065_default-profile-picture-transparent-hd-png-download.png"
-              })`,
-            }}>
-              <h3>{match.firstName} {match.lastName} |  {match.department}  {match.course}</h3>
-              <p>Bio: {match.bio}</p>
-            </li>
+            <Link to={`/user/chat/${userId}/${match.id}`}> 
+              <li key={match.id} className="card match"
+                style={{
+                  backgroundImage: `url(${
+                    match.profileImage
+                      ? match.profileImage
+                      : "https://www.pngfind.com/pngs/m/676-6764065_default-profile-picture-transparent-hd-png-download.png"
+                  })`,
+                }}
+              >
+                <h3>{match.firstName} {match.lastName} | {match.department} {match.course}</h3>
+                <p>Bio: {match.bio}</p>
+              </li>
+            </Link>
           ))}
         </ul>
       )}
     </div>
   );
-};
+}
 
-export default Message;
+export default Match;

@@ -166,8 +166,13 @@ export const navData = [
     alt: "profile",
   },
   {
+    svg: create,
+    path: "/user/match",
+    alt: "match",
+  },
+ {
     svg: message,
-    path: "/user/message",
+    path: "/user/chat",
     alt: "message",
   },
 ];
